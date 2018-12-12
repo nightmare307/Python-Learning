@@ -40,5 +40,4 @@ print(new_grammar)
 #2.2.2其他常用操作
 #获取字符串长度
 len (grammar)
-#字符串控制
-
+#字符串控制长度
