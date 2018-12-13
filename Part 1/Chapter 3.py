@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*
 # 第三章练习1——失败
 #求10的因数
 #定义因数变量i
@@ -22,15 +23,22 @@ print('10的因数有%s因数累加和是%d' %(result,total))
 # 第三章练习2
 text='中国+china2017是-*/OK 很难a也不难'
 #定义统计变量
-letter=word=nums=syms=0
+letterL=letter=word=nums=syms=0
+#定义循环初始循环变量
 i=0
+#定义字符串长度变量（感觉可以不用定义）
 slen=len(text)
-while i<slen:
-    if (ord(text[i])>126):
+#定义当循环变量小于长度时进行循环
+while i < len(text):
+    if (ord(text[i])>127):
         word+=1
-    elif (65>=ord(text[i]) <= 90 and 97>=ord(text[i]) <= 122):
+    elif (ord(text[i]) > 96 and ord(text[i]) < 123):
         letter+=1
-    elif (33 >= ord(text[i]) <= 47 and 58 >= ord(text[i]) <= 64):
+    elif (ord(text[i]) > 64 and ord(text[i]) < 91):
+        letterL += 1
+    elif (ord(text[i])>31 and ord(text[i]) < 48):
         syms+=1
+    else:
+        nums+=1
     i+=1
-print("语句中包含字母%d个,文字%d个,数字%d个,符号%d个"%(letter,word,nums,syms))
+print("语句中包含小写字母%d个,大写字母%d个,文字%d个,数字%d个,符号%d个"%(letter,letterL,word,nums,syms))
