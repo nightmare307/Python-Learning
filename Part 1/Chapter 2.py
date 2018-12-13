@@ -74,4 +74,4 @@ print('平均价格约%d元，平均价格较精确%.2f元，平均价格实际%
 #增加记账日期及人名
 localtime = time.asctime(time.localtime(time.time()))
 print("----"*12+'--')
-print('记账日期：', localtime,"\n记账人：Chris")
+print('记账日期:', localtime, '\n记账人:Chris')
