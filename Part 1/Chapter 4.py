@@ -23,8 +23,8 @@ i=0
 z=0
 for nrecords in records:
     everytotal.append(nrecords[1][1]*nrecords[1][2]+nrecords[2][1]*nrecords[2][2]+nrecords[3][1]*nrecords[3][2])
-while z<len(everytotal):
-    print('%s同学投资%.2f元'%(nrecords[0],everytotal[z]))
-    z+=1
+    while z<len(everytotal):
+        print('%s同学投资%.2f元'%(nrecords[0],everytotal[z]))
+        z+=1
 total = sum(everytotal)
 print('编程兴趣小组总投入%.2f元'%(total))
