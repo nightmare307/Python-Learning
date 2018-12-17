@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*
 # 尝试使用列表index更改数据
-list=['鲶鱼',18,'黑鱼',20]
-cate=list.index('黑鱼')
+list = ['鲶鱼', 18, '黑鱼', 20]
+cate = list.index('黑鱼')
 print(list[list.index('黑鱼')+1]*1.5)
 
 
@@ -17,22 +17,29 @@ print(mao.index('毛小'))
 mao[0] = '毛大'
 print(mao)
 #定义姓名列表
-records = [zhang,ding,mao,wang,li]
+records = [zhang, ding, mao, wang, li]
 #定义总金额变量
 total = 0
 #定义单人金额列表
 everytotal = []
 #定义姓名循环查找变量
-z=0
+z = 0
 #使用for循环查找数量和金额
 for nrecords in records:
     #使用列表中元素查找的方式查找每人三类产品金额(列表中第二个元素的第二项乘以第三项，第三个元素的第二项乘以第三项，第四个元素的第二项乘以第三项)
     #使用查找出来的元素添加到新的列表中
     everytotal.append(nrecords[1][1]*nrecords[1][2]+nrecords[2][1]*nrecords[2][2]+nrecords[3][1]*nrecords[3][2])
     #使用while循环查找姓名，使用列表长度作为限制跳出值，将查询结果打印，并以两位精度小数点打印
-    while z<len(everytotal):
-        print('%s同学投资%.2f元'%(nrecords[0],everytotal[z]))
-        z+=1
+    while z < len(everytotal):
+        print('%s同学投资%.2f元' % (nrecords[0], everytotal[z]))
+        z += 1
+#使用循环求总金额
+i = 0
+alltotal = 0
+while i < len(everytotal):
+    alltotal += everytotal[i]
+    i += 1
+print('编程兴趣小组总投入%.2f元' % (alltotal))
 #使用sum函数求总金额并以小数点两位精度打印打印
 total = sum(everytotal)
-print('编程兴趣小组总投入%.2f元'%(total))
+print('编程兴趣小组总投入%.2f元' % (total))
