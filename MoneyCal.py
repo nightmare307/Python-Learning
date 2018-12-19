@@ -51,7 +51,7 @@ while i <=terms:
            interest = recapital*dayrate*dayuse
            monthall = monthcapital+interest
            print('第%d期，剩余待还本金%d，还款本金%.2f元，当期利息%.2f元，还款本息合计%.2f元，还款日为%s，使用天数%d天'%(i,recapital,monthcapital,interest,monthall,datefirstback,dayuse))
-           z.insert(0,float('% .3f' % (interest)))
+           z.insert(0,float('% .3f' % (interest))) #将首期内容插入第一位
        else:
            recapital = (capital-monthcapital*(i-1))
            dateback = datefirstback+relativedelta(months=i-1)
@@ -63,7 +63,7 @@ while i <=terms:
            #print(dateback)
            #print(datebacka)
            print('第%d期，剩余待还本金%d，还款本金%.2f元，当期利息%.2f元，还款本息合计%.2f元，还款日为%s，使用天数%d天' % (i, recapital, monthcapital, interest, monthall, dateback, dayuse))
-           z.append(float('% .3f' % (interest)))
+           z.append(float('% .3f' % (interest)))#添加其他金额内容
        i+=1
 print(z)
 total=sum(z)
