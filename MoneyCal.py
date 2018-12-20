@@ -7,7 +7,6 @@ from dateutil.relativedelta import relativedelta
 
 #等额本金计算器
 print('--------'*6+'还款计算器'+'--------'*7)
-
 #定义还款方式
 mode=input('请输入还款类型(等额本息)：')
 mode1=['等额本息']
@@ -30,8 +29,6 @@ while capital <=0:
 #定义利率
 #dayrate= 0.0004
 dayrate=float(input('请输入借款日利率(百分比)：'))*0.01
-#monthrate = float(input('请输入借款月利率(百分比)：'))*0.01
-#yearrate = float(input('请输入借款年利率(百分比)：'))*0.01
 #定义剩余本金
 recapital = 0
 #定义每月应还本金
@@ -76,6 +73,7 @@ totalall=[]
 interestall = []
 #定义求和列表
 total = [[totalall], [interestall]]
+
 #-----------------------------------------等额本金-----------------------------------
 if mode is '等额本金':
     print('--------'*7+'还款计划'+'--------'*7)
@@ -91,7 +89,6 @@ if mode is '等额本金':
            interestall.insert(0,float('% .3f' % (interest))) 
            print('第%d期，剩余待还本金%d，还款本金%.2f元，当期利息%.2f元，还款本息合计%.2f元，还款日为%s，使用天数%d天' % (
                i, recapital, monthcapital, interest, monthall, datefirstback, dayuse))
-
        else:
            recapital = (capital-monthcapital*(i-1))
            dateback = datefirstback+relativedelta(months=i-1)
@@ -99,16 +96,12 @@ if mode is '等额本金':
            dayuse = (dateback-datebacka).days
            interest = recapital*dayrate*dayuse
            monthall = monthcapital+interest
-           #print(dateback)
-           #print(datebacka)
            # 添加其他期总额
            totalall.append(float('% .3f' % (monthall)))  
            # 添加其他期利息
            interestall.append(float('% .3f' % (interest)))  
            print('第%d期，剩余待还本金%d，还款本金%.2f元，当期利息%.2f元，还款本息合计%.2f元，还款日为%s，使用天数%d天' % (i, recapital, monthcapital, interest, monthall, dateback, dayuse))
-
        i+=1
-
 #本息求和
 totalsum = sum(totalall)
 #利息求和
