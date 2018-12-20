@@ -10,7 +10,7 @@ print('--------'*6+'还款计算器'+'--------'*7)
 
 #定义还款方式
 mode=input('请输入还款类型(等额本金/等额本息)：')
-while mode == ''or mode != '等额本金' or mode != '等额本息':
+while mode == '' :
     print('请输入正确的还款类型(等额本金/等额本息)：')
     mode = input('请输入还款类型(等额本金/等额本息)：')
 
@@ -77,7 +77,7 @@ interestall = []
 #定义求和列表
 total = [[totalall], [interestall]]
 #-----------------------------------------等额本金-----------------------------------
-if mode=='等额本金':
+if mode is '等额本金':
     print('--------'*7+'还款计划'+'--------'*7)
     while i <=terms:
        if i==1:
@@ -110,40 +110,24 @@ if mode=='等额本金':
        i+=1
 
 #-----------------------------------------等额本息（未完成）-----------------------------------
-elif mode == '等额本息':
+'''
+elif mode is '等额本息':
     print('还没做')
-    '''
+    
     print('--------'*7+'还款计划'+'--------'*7)
+    totalac=capital+interest
+    monthall=total/totalac
     while i <= terms:
        if i == 1:
-           recapital = capital
-           dayuse = (datefirstback-datefirst).days
-           interest = recapital*dayrate*dayuse
-           monthall = monthcapital+interest
-           #将首期总金额插入第一位
-           totalall.insert(0, float('% .3f' % (monthall)))
-           #将首期利息插入第一位
-           interestall.insert(0, float('% .3f' % (interest)))
+           recapital = capital #定义剩余本金
+           if dayuse = (datefirstback-datefirst).days>30:
+               dayuse1=dayuse-30
+           monthall=monthall+dayuse1*dayrate
+           interest=capital*dayrate*30*i
+           monthcapital=mothall-interest
            print('第%d期，剩余待还本金%d，还款本金%.2f元，当期利息%.2f元，还款本息合计%.2f元，还款日为%s，使用天数%d天' % (
                i, recapital, monthcapital, interest, monthall, datefirstback, dayuse))
 
-       else:
-           recapital = (capital-monthcapital*(i-1))
-           dateback = datefirstback+relativedelta(months=i-1)
-           datebacka = datefirstback+relativedelta(months=i-2)
-           dayuse = (dateback-datebacka).days
-           interest = recapital*dayrate*dayuse
-           monthall = monthcapital+interest
-           #print(dateback)
-           #print(datebacka)
-           # 添加其他期总额
-           totalall.append(float('% .3f' % (monthall)))
-           # 添加其他期利息
-           interestall.append(float('% .3f' % (interest)))
-           print('第%d期，剩余待还本金%d，还款本金%.2f元，当期利息%.2f元，还款本息合计%.2f元，还款日为%s，使用天数%d天' % (
-               i, recapital, monthcapital, interest, monthall, dateback, dayuse))
-
-       i += 1
 '''
 #本息求和
 totalsum = sum(totalall)
