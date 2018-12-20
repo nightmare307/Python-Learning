@@ -7,13 +7,13 @@ from dateutil.relativedelta import relativedelta
 
 #等额本金计算器
 print('--------'*6+'还款计算器'+'--------'*7)
-'''
+
 #定义还款方式
 mode=input('请输入还款类型(等额本金/等额本息)：')
 while mode == ''or mode != '等额本金' or mode != '等额本息':
     print('请输入正确的还款类型(等额本金/等额本息)：')
     mode = input('请输入还款类型(等额本金/等额本息)：')
-'''
+
 #定义初始期数变量
 i = 1
 #定义期数变量
