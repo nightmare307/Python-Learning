@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*
+'''
 #===========================钓鱼原始记录
 d_date1 = {'鲫鱼': [18, 10.5], '鲤鱼': [8, 6.2], '鲢鱼': [7, 4.7]}  # 1月1日钓鱼记录
 d_date2 = {'草鱼': [2, 7.2], '鲫鱼': [3, 12], '黑鱼': [6, 15]}  # 1月2日钓鱼记录
@@ -29,20 +30,40 @@ print('钓鱼总数量为%d,总金额为%.2f元' % (nums, amount))  # 打印总�
 print(fish_records)
 print(d_date1)
 print(d_date3)
-
+'''
 
 
 #期末考试成绩管理
 #定义人员和成绩列表对应的字典
 results={'小明':[95.5,98,97],'小王':[96,92,82],'小丽':[91,100,90],'小花':[88,93,99]}
-name = ['小明','小王','小丽','小花']
+names = ['小明','小王','小丽','小花']
 print(results)
-#for name,chinese in result.items():
+#for name,ch in result.items():
 print(results['小明'][0])
-names=''
-chinese=0
-chinesesum=0
+#names=''
+ch=0
+chsum=0
+en=0
+ensum=0
+ma=0
+masum=0
+maxscore={'语文':['',0],'英语':['',0],'数学':['',0]}
 for names in results:
-    chinese=results[names][0]
-    chinesesum+=chinese
-print('%.1f' % (chinesesum))
+    ch=results[names][0]
+    chsum+=ch
+    en = results[names][1]
+    ensum += en
+    ma = results[names][2]
+    masum += ma
+print('语文总分%.1f，英语总分%.1f，数学总分%.1f' % (chsum,ensum,masum))
+print('语文平均分%.2f，英语平均分%.2f，数学平均分%.2f' %
+      (chsum/len(names), ensum/len(names), masum/len(names)))
+
+for name,score in results.items():
+      if maxscore['语文'][1]<score[0]:
+          maxscore['语文']=[name,score[0]]
+      elif maxscore['英语'][1] < score[1]:
+          maxscore['英语']=[name, score[1]]
+      elif maxscore['数学'][1] < score[2]:
+          maxscore['数学']=[name, score[2]]
+print(maxscore)
