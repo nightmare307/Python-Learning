@@ -8,11 +8,11 @@ from dateutil.relativedelta import relativedelta
 #等额本金计算器
 print('--------'*6+'还款计算器'+'--------'*7)
 #定义还款方式
-mode=input('请输入还款类型(等额本息)：')
-mode1=['等额本息']
-while mode not in mode1  :
-    print('请输入正确的还款类型(等额本息)：')
-    mode = input('请输入还款类型(等额本息)：')
+#mode=input('请输入还款类型(等额本金)：')
+#mode1=['等额本金']
+#while mode not in mode1  :
+    #print('请输入正确的还款类型(等额本金)：')
+    #mode = input('请输入还款类型(等额本金)：')
 #定义初始期数变量
 i = 1
 #定义期数变量
@@ -73,12 +73,13 @@ totalall=[]
 interestall = []
 #定义求和列表
 total = [[totalall], [interestall]]
-
+#无息部分
+interest = 10000
 #-----------------------------------------等额本金-----------------------------------
-if mode is '等额本金':
-    print('--------'*7+'还款计划'+'--------'*7)
-    while i <=terms:
-       if i==1:
+#if mode is '等额本金':
+print('--------'*7+'还款计划'+'--------'*7)
+while i <=terms:
+    if i==1:
            recapital = capital
            dayuse = (datefirstback-datefirst).days
            interest = recapital*dayrate*dayuse
@@ -89,7 +90,7 @@ if mode is '等额本金':
            interestall.insert(0,float('% .3f' % (interest))) 
            print('第%d期，剩余待还本金%d，还款本金%.2f元，当期利息%.2f元，还款本息合计%.2f元，还款日为%s，使用天数%d天' % (
                i, recapital, monthcapital, interest, monthall, datefirstback, dayuse))
-       else:
+    else:
            recapital = (capital-monthcapital*(i-1))
            dateback = datefirstback+relativedelta(months=i-1)
            datebacka = datefirstback+relativedelta(months=i-2)
@@ -101,13 +102,13 @@ if mode is '等额本金':
            # 添加其他期利息
            interestall.append(float('% .3f' % (interest)))  
            print('第%d期，剩余待还本金%d，还款本金%.2f元，当期利息%.2f元，还款本息合计%.2f元，还款日为%s，使用天数%d天' % (i, recapital, monthcapital, interest, monthall, dateback, dayuse))
-       i+=1
+    i+=1
 #本息求和
 totalsum = sum(totalall)
 #利息求和
 totalint = sum(interestall)
 print('-------'*7+'合    计'+'-------'*7)
-print('共%d期，日利率%.2f%%，月利率%.3f%%，年利率（365天计算）%.3f%%,年利率（360天计算）%.3f%%'%
-      (terms, dayrate*100, dayrate*30*100, dayrate*365*100,dayrate*360*100))
+print('共%d期，日利率%.2f%%，月利率%.3f%%，年利率（365天计算）%.3f%%,年利率（360天计算）%.3f%%' %
+      (terms, dayrate*100, dayrate*30*100, dayrate*365*100, dayrate*360*100))
 print('总计还款%.2f元，其中本金总计%.2f元，利息合计%.2f元'%(totalsum,capital,totalint))
 

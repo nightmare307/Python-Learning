@@ -34,7 +34,15 @@ print(d_date3)
 
 #期末考试成绩管理
 #定义人员和成绩列表对应的字典
-result={'小明':[95.5,98,97],'小王':[96,92,82],'小丽':[91,100,90],'小花':[88,93,99]}
-print(result)
+results={'小明':[95.5,98,97],'小王':[96,92,82],'小丽':[91,100,90],'小花':[88,93,99]}
+name = ['小明','小王','小丽','小花']
+print(results)
 #for name,chinese in result.items():
-print(result['小明'][0])
+print(results['小明'][0])
+names=''
+chinese=0
+chinesesum=0
+for names in results:
+    chinese=results[names][0]
+    chinesesum+=chinese
+print('%.1f' % (chinesesum))
