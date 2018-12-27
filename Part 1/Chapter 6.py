@@ -2,7 +2,7 @@
 def find_factor(nums):
     i=1
     str1=''
-    print('%d的因数是:'%(nums))
+    print('%d????:'%(nums))
     while i<=nums:
         if nums%i==0:
             str1=str1+' '+str(i)
