@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*
+'''
 def find_factor(nums):
     i=1
     str1=''
@@ -16,3 +17,7 @@ num_len=len(num2_L)
 while i<num_len:
     find_factor(num2_L[i])
     i+=1
+'''
+
+import Modules_Part1
+print(Modules_Part1.find_factor(20))
