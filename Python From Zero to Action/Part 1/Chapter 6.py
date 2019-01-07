@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*
-from Modules_Part1 import *
+from Modules_Part1 import * 
 '''
 def find_factor(nums):
     i=1
@@ -20,7 +20,7 @@ while i<num_len:
     i+=1
 '''
 
-#from Modules_Part1 import find_factor
+from Modules_Part1 import find_factor
 print(find_factor(20))
 
 
