@@ -19,5 +19,5 @@ while i<num_len:
     i+=1
 '''
 
-import Modules_Part1
-print(Modules_Part1.find_factor(20))
+from Modules_Part1 import find_factor
+print(find_factor(20))
