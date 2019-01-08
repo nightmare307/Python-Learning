@@ -24,4 +24,3 @@ print('立方体体积是%d' % (myBox2.volume()))
 
 bl=myBox.length
 print(bl)
-
