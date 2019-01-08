@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*
 
+from Class_Module import *
 #颜色类
 class ColorBox():
     def __init__(self,index=0):
@@ -25,6 +26,7 @@ print('立方体体积是%d' % (myBox2.volume()))
 bl=myBox.length
 print(bl)
 #==========================类的继承==================================
+'''
 class BoxClassN():
     def __init__(self, Boxlength, Boxwidth, Boxheight):
         self.length = Boxlength
@@ -42,6 +44,7 @@ class BoxClassIn(BoxClassN):
     def area(self):
         superficial=self.length*self.height+self.width*self.height+self.length*self.width
         return superficial*2
+'''
 #主程序调用
 myBox3=BoxClassIn(10,8,3)
 print('立方体体积是%d，表面积是%d，颜色是%s，材质是%s，类型是%s'%(myBox3.volume(),myBox3.area(),myBox3.color,myBox3.material,myBox3.type))
