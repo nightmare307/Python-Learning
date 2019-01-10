@@ -14,6 +14,8 @@ print('Hi , '+names[3]+' , I invite you.')
 #3.3自己的列表
 cars=['Nissan','Benz','BMW','Toyota']
 print('I would like to own a '+cars[0]+' car.')
+
+
 #3.4嘉宾名单
 guest=['Andy','Tiffany','Betty','Chris']
 for i in guest:
@@ -35,6 +37,7 @@ guest.append('Fiona')
 print(guest)
 for i in guest:
     print('Hi , '+i+' , I invite you.')
+guestnew=guest.copy()
 #3.7缩减名单
 print('I can only invite 2 persons.')
 print(guest)
@@ -51,3 +54,20 @@ for i in guest:
 del guest[0:]
 print(guest)
 
+
+#3.8放眼世界
+world=['Japan','America','France','Canada','Italy']
+print(world)
+print(sorted(world))
+print(world)
+world.reverse()
+print(world)
+world.reverse()
+print(world)
+world.sort()
+print(world)
+world.sort(reverse=True)
+print(world)
+
+#3.9晚餐嘉宾
+print('来宾人数是%d人'%(len(guestnew)))
