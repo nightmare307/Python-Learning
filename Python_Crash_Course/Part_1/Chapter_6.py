@@ -36,3 +36,4 @@ for invest in investigate:
         print('%s , Thank you for the investigation.'%(invest.title()))
     else:
         print('%s , please attend the investigation' % (invest.title()))
+
