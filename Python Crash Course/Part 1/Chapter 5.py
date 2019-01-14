@@ -39,3 +39,17 @@ for alienc in alienlist:
     print('You get %d points'%points)
 
 #5.6人生的不同阶段
+age=3
+if age < 2:
+    print('He(She) is a baby')
+elif age < 4:
+    print('He(She) is a kid')
+elif age < 13:
+    print('He(She) is a junior')
+elif age < 20:
+    print('He(She) is a youth')
+elif age < 65:
+    print('He(She) is a adult')
+else:
+    print('He(She) is an aged')
+
