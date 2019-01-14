@@ -5,7 +5,8 @@ friend={'first_name':'tiffany',
         'age':28,
         'city':'beijing',}
 print('My friend is %s %s ,she is %d years old , she is living in %s' % (
-    friend['first_name'].title(), friend['last_name'].title(), friend['age'], friend['city'].title()))
+    friend['first_name'].title(), friend['last_name'].title(), friend['age'], 
+	friend['city'].title()))
 
 #6.2喜欢的数字
 favnums={'jack':4,
@@ -37,3 +38,22 @@ for invest in investigate:
     else:
         print('%s , please attend the investigation' % (invest.title()))
 
+#6.7人
+tiffany = {'first_name': 'tiffany',
+          'last_name': 'zhang',
+          'age': 28,
+          'province':'beijing',
+          'city': 'beijing', }
+chris = {'first_name': 'chris',
+         'last_name': 'li',
+         'age': 30,
+         'province': 'beijing',
+         'city': 'beijing', }
+dan = {'first_name': 'dan',
+        'last_name': 'zhang',
+        'age': 26,
+        'province': 'hebei',
+        'city': 'chengde', }
+people=[tiffany,chris,dan]
+for one in people:
+	print(one)
