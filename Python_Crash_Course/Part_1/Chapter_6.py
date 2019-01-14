@@ -57,3 +57,4 @@ dan = {'first_name': 'dan',
 people=[tiffany,chris,dan]
 for one in people:
 	print(one)
+
