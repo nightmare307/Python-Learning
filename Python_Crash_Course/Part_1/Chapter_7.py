@@ -45,3 +45,32 @@ while age != 'quit':
             price='15$'
             print('Your ticket price is %s' % (price))
 
+#7.8熟食店
+sandwich_order=['tuna','beef','chicken']
+finish_sadnwiches=[]
+while len(sandwich_order)>0:
+    sandwich = sandwich_order.pop()
+    print('We made your %s sandwich'%(sandwich))
+    finish_sadnwiches.append(sandwich)
+print(finish_sadnwiches)
+
+#7.9五香烟熏牛肉卖完了
+sandwich_order = ['tuna', 'beef', 'chicken','pastrami','pastrami']
+print('Our pastrami is sold out')
+while 'pastrami' in sandwich_order:
+    sandwich_order.remove('pastrami')
+print(sandwich_order)
+
+#7.10 梦想的度假胜地
+active=True
+investgate = {}
+while  active:
+    name=input('Please input your name:\n')
+    place = input('If you could visit one place in the world, where would you go?\n')
+    investgate[name]=place
+    next=input('Would you like to let another respond?(y/n)\n')
+    if next=='n':
+        active=False
+for name,place in investgate.items():
+    print('%s would like to go to %s'%(name,place))
+
