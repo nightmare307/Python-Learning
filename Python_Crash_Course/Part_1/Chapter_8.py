@@ -50,4 +50,27 @@ while True:
     cna=city_country(c,na)
     print(cna)
 
+#*8.7专辑 8.8自己的专辑
+def make_album(name,album_name,album_year='',):
+    '''定义歌手信息'''
+    if album_year:
+        album = {'singer':name,'album':album_name,}
+    else:
+        album = {'singer': name, 'album': album_name,'year': album_year,  }
+    return album
 
+while True:
+    print("\nPlease input single name :\nenter 'q' to quit.")
+    sname=input('Single name :')
+    if sname=='q':
+        break
+    print("\nPlease input album name :\nenter 'q' to quit.")
+    aname = input('Album name :')
+    if aname=='q':
+        break
+    print("\nPlease input album year :\nif you don\'t know , press enter \nenter 'q' to quit.")
+    ayear = input('Album year :')
+    if ayear == 'q':
+        break
+    album_info=make_album(sname,aname,ayear)
+print(album_info)
