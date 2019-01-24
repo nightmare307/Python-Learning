@@ -19,4 +19,16 @@ restaurant=Restaurant('京味斋','北京菜')
 print('This %s is sell %s'%(restaurant.restaurant_name,restaurant.cuisine_type))
 print('%s is opening' % (restaurant.restaurant_name))
 
-#*9.2三家餐馆
+#*9.3用户
+class User():
+    '''用户类'''
+    def __init__(self, first_name, last_name,Age,Gender,Hobby):
+        self.fname=first_name
+        self.lname=last_name
+        self.age=Age
+        self.gender=Gender
+        self.hobby=Hobby
+    def describe_user(self):
+        return self.fname.title()+' '+self.lname.title()+' is a '+str(self.age) +' years old '+self.gender + ' , he/she\'s hobby is '+self.hobby
+lee = User('chris', 'lee', 18, 'man', 'sleep')
+print(lee.describe_user())
