@@ -24,8 +24,8 @@ print(16-8)
 print(8.0/1)
 print(4+4)
 #2.9最喜欢的数字
-favourite=4
-print('My favourite number is '+str(favourite))
+favorite=4
+print('My favorite number is '+str(favorite))
 #2.10添加注释
 #2.11Zen of Python
 import this
