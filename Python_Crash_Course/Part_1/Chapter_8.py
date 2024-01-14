@@ -5,7 +5,7 @@ from Chapter_8_modules import *
 display_message()
 
 #*8.2喜欢的图书
-favourite_book('Kill Bill')
+favorite_book('Kill Bill')
 
 #*8.3T恤
 make_shirt('M','Kill Bill')

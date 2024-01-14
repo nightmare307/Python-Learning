@@ -7,10 +7,10 @@ def display_message():
 display_message()
 
 #*8.2喜欢的图书
-def favourite_book(book):
+def favorite_book(book):
     '''显示信息'''
     print('One of my favorite books is %s' % (book))
-favourite_book('Kill Bill')
+favorite_book('Kill Bill')
 
 #*8.3T恤
 def make_shirt(size,word):

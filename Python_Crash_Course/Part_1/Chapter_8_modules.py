@@ -4,7 +4,7 @@ def display_message():
     print('This chapter we learn about function')
 
 #*8.2喜欢的图书
-def favourite_book(book):
+def favorite_book(book):
     '''显示信息'''
     print('One of my favorite books is %s' % (book))
 
