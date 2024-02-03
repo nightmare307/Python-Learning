@@ -47,12 +47,12 @@ while age != 'quit':
 
 #7.8熟食店
 sandwich_order=['tuna','beef','chicken']
-finish_sadnwiches=[]
+finish_sandwiches=[]
 while len(sandwich_order)>0:
     sandwich = sandwich_order.pop()
     print('We made your %s sandwich'%(sandwich))
-    finish_sadnwiches.append(sandwich)
-print(finish_sadnwiches)
+    finish_sandwiches.append(sandwich)
+print(finish_sandwiches)
 
 #7.9五香烟熏牛肉卖完了
 sandwich_order = ['tuna', 'beef', 'chicken','pastrami','pastrami']
@@ -63,14 +63,14 @@ print(sandwich_order)
 
 #7.10 梦想的度假胜地
 active=True
-investgate = {}
+investigate = {}
 while  active:
     name=input('Please input your name:\n')
     place = input('If you could visit one place in the world, where would you go?\n')
-    investgate[name]=place
+    investigate[name]=place
     next=input('Would you like to let another respond?(y/n)\n')
     if next=='n':
         active=False
-for name,place in investgate.items():
+for name,place in investigate.items():
     print('%s would like to go to %s'%(name,place))
 
