@@ -56,6 +56,7 @@ fby, fbm, fbd = fbackt[0:3]
 datefirstback = datetime.datetime(fby, fbm, fbd).date()
 #比较首期还款日是否小于借款日并提示重新输入
 while datefirstback < datefirst:
+
    print('首期还款日不可早于借款日期，请重新输入！')
    fbacka = input('请输入首期还款日（yyyy-mm-dd）：')
    fbackt = time.strptime(fbacka, "%Y-%m-%d")
