@@ -2,49 +2,215 @@ import pandas as pd
 import os
 from tkinter import *
 from tkinter import filedialog, messagebox
+from tkinter import ttk
 
 class FileSelector:
     def __init__(self):
         # 创建主窗口
         self.root = Tk()
-        self.root.withdraw()  # 隐藏主窗口，但不影响对话框
+        self.root.title("比赛积分统计程序")
         
-        # 将窗口置于屏幕中央
+        # 设置窗口大小和位置
         self.center_window()
+        
+        # 创建主框架
+        main_frame = ttk.Frame(self.root, padding="10")
+        main_frame.grid(row=0, column=0, sticky=(N, W, E, S))
+        
+        # 配置主窗口的网格权重
+        self.root.grid_columnconfigure(0, weight=1)
+        self.root.grid_rowconfigure(0, weight=1)
+        
+        # 配置主框架的网格权重
+        main_frame.grid_columnconfigure(0, weight=3)
+        main_frame.grid_columnconfigure(1, weight=1)
+        main_frame.grid_rowconfigure(3, weight=1)  # 让预览区域可以扩展
+        
+        # 文件路径显示
+        self.file_path = StringVar()
+        path_entry = ttk.Entry(main_frame, textvariable=self.file_path, width=50)
+        path_entry.grid(row=0, column=0, padx=5, pady=5)
+        
+        # 选择文件按钮
+        select_btn = ttk.Button(main_frame, text="选择Excel文件", command=self.select_file)
+        select_btn.grid(row=0, column=1, padx=5, pady=5)
+        
+        # 创建按钮框架
+        button_frame = ttk.Frame(main_frame)
+        button_frame.grid(row=1, column=0, columnspan=2, pady=10)
+        
+        # 分析按钮
+        analyze_btn = ttk.Button(button_frame, text="开始分析", command=self.analyze)
+        analyze_btn.pack(side=LEFT, padx=10)
+        
+        # 退出按钮
+        exit_btn = ttk.Button(button_frame, text="退出程序", command=self.cleanup)
+        exit_btn.pack(side=LEFT, padx=10)
+        
+        # 创建表格切换按钮框架
+        self.sheet_frame = ttk.Frame(main_frame)
+        self.sheet_frame.grid(row=2, column=0, columnspan=2, pady=5, sticky='ew')
+        self.sheet_frame.grid_remove()  # 初始隐藏
+        
+        # 创建表格切换按钮
+        self.rank_btn = ttk.Button(self.sheet_frame, text="积分排名", command=lambda: self.switch_table('rank'))
+        self.rank_btn.pack(side=LEFT, padx=5)
+        
+        self.match_btn = ttk.Button(self.sheet_frame, text="对阵统计", command=lambda: self.switch_table('match'))
+        self.match_btn.pack(side=LEFT, padx=5)
+        
+        # 创建表格预览区域
+        self.preview_frame = ttk.Frame(main_frame)
+        self.preview_frame.grid(row=3, column=0, columnspan=2, pady=5, sticky=(N, W, E, S))
+        
+        # 配置预览框架的网格权重
+        self.preview_frame.grid_columnconfigure(0, weight=1)
+        self.preview_frame.grid_rowconfigure(0, weight=1)
+        
+        # 创建表格
+        self.tree = ttk.Treeview(self.preview_frame)
+        self.tree.grid(row=0, column=0, sticky=(N, W, E, S))  # 使用grid而不是pack
+        
+        # 添加垂直滚动条
+        vsb = ttk.Scrollbar(self.preview_frame, orient="vertical", command=self.tree.yview)
+        vsb.grid(row=0, column=1, sticky=(N, S))
+        
+        # 添加水平滚动条
+        hsb = ttk.Scrollbar(self.preview_frame, orient="horizontal", command=self.tree.xview)
+        hsb.grid(row=1, column=0, sticky=(E, W))
+        
+        # 配置树形表格的滚动
+        self.tree.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
+        
+        # 初始隐藏预览区域
+        self.preview_frame.grid_remove()
+        
+        # 下载按钮改名为导出按钮（初始隐藏）
+        self.download_btn = ttk.Button(button_frame, text="导出", command=self.save_file)
+        self.download_btn.pack(side=LEFT, padx=10)
+        self.download_btn.pack_forget()
+        
+        # 保存分析结果的变量
+        self.result_df = None
+        self.match_df = None
+        
+        self.selected_file = None
         
     def center_window(self):
         # 获取屏幕尺寸
         screen_width = self.root.winfo_screenwidth()
         screen_height = self.root.winfo_screenheight()
         
-        # 计算窗口位置
-        x = (screen_width - 200) // 2
-        y = (screen_height - 100) // 2
+        # 设置窗口大小
+        window_width = 630
+        window_height = 120
         
-        # 设置窗口位置
-        self.root.geometry(f"200x100+{x}+{y}")
+        # 计算窗口位置
+        x = (screen_width - window_width) // 2
+        y = (screen_height - window_height) // 2
+        
+        # 设置窗口位置和大小
+        self.root.geometry(f"{window_width}x{window_height}+{x}+{y}")
         
     def select_file(self):
-        # 显示文件选择对话框
         file_path = filedialog.askopenfilename(
             title="请选择Excel文件",
             filetypes=[("Excel files", "*.xlsx")],
-            initialdir=os.path.expanduser("~")  # 从用户主目录开始
+            initialdir=os.path.expanduser("~")
         )
-        return file_path
+        if file_path:
+            self.file_path.set(file_path)
+            self.selected_file = file_path
+            
+    def switch_table(self, table_type):
+        """切换显示的表格"""
+        # 清空现有表格
+        for item in self.tree.get_children():
+            self.tree.delete(item)
+            
+        if table_type == 'rank':
+            df = self.result_df
+            self.rank_btn.state(['disabled'])
+            self.match_btn.state(['!disabled'])
+        else:
+            df = self.match_df
+            self.match_btn.state(['disabled'])
+            self.rank_btn.state(['!disabled'])
+            
+        # 设置表格列
+        self.tree['columns'] = list(df.columns)
+        self.tree['show'] = 'headings'
         
+        # 设置列标题和列宽
+        for column in df.columns:
+            self.tree.heading(column, text=column)
+            # 根据内容设置合适的列宽
+            max_width = max(
+                len(str(df[column].max())),
+                len(column)
+            ) * 10 + 20  # 添加一些额外空间
+            self.tree.column(column, width=max_width, minwidth=50)
+        
+        # 添加数据
+        for _, row in df.iterrows():
+            self.tree.insert('', END, values=list(row))
+            
+    def analyze(self):
+        if not self.selected_file:
+            messagebox.showwarning("警告", "请先选择Excel文件！")
+            return
+            
+        try:
+            df = pd.read_excel(self.selected_file)
+            self.result_df, self.match_df = analyze_matches(df)
+            
+            # 显示表格切换按钮和预览区域
+            self.sheet_frame.grid()
+            self.preview_frame.grid()
+            
+            # 默认显示积分排名表格
+            self.switch_table('rank')
+            
+            # 显示下载按钮
+            self.download_btn.pack(side=LEFT, padx=10)
+            
+            # 调整窗口大小并设置最小尺寸
+            self.root.geometry("800x600")
+            self.root.minsize(800, 600)  # 设置最小窗口大小
+            
+        except Exception as e:
+            messagebox.showerror("错误", str(e))
+    
     def save_file(self):
-        # 显示保存文件对话框
-        file_path = filedialog.asksaveasfilename(
-            title="保存积分排名",
+        """保存文件功能"""
+        if self.result_df is None or self.match_df is None:
+            messagebox.showwarning("警告", "没有可保存的数据！")
+            return
+            
+        save_path = filedialog.asksaveasfilename(
+            title="保存分析结果",
             defaultextension=".xlsx",
             filetypes=[("Excel files", "*.xlsx")],
-            initialdir=os.path.expanduser("~")  # 从用户主目录开始
+            initialdir=os.path.dirname(self.selected_file)
         )
-        return file_path
+        
+        if save_path:
+            try:
+                with pd.ExcelWriter(save_path, engine='openpyxl') as writer:
+                    self.result_df.to_excel(writer, sheet_name='积分排名', index=False)
+                    self.match_df.to_excel(writer, sheet_name='对阵统计', index=False)
+                messagebox.showinfo("成功", f"结果已保存到：{save_path}")
+            except Exception as e:
+                messagebox.showerror("错误", f"保存文件时出错：{str(e)}")
     
     def cleanup(self):
-        self.root.destroy()
+        """退出程序"""
+        if messagebox.askokcancel("确认退出", "确定要退出程序吗？"):
+            self.root.quit()
+            self.root.destroy()
+    
+    def run(self):
+        self.root.mainloop()
 
 def calculate_points(row):
     score = row['对阵比分'].split(':')
@@ -192,47 +358,10 @@ def print_formatted_matches(match_df):
 def main():
     try:
         file_selector = FileSelector()
-        file_path = file_selector.select_file()
-        
-        if not file_path:
-            print("未选择文件，程序退出")
-            return
-        
-        print(f"正在读取文件: {file_path}")
-        df = pd.read_excel(file_path)
-        
-        required_columns = ['比赛时间', '比赛组别', '胜者姓名', '对阵比分', '败者姓名', '比赛地点']
-        missing_columns = [col for col in required_columns if col not in df.columns]
-        
-        if missing_columns:
-            print(f"错误：Excel文件缺少以下列：{', '.join(missing_columns)}")
-            return
-        
-        result_df, match_df = analyze_matches(df)
-        
-        # 打印积分排名
-        print("\n积分排名：")
-        print_formatted_table(result_df)
-        
-        # 打印对阵统计
-        print("\n选手对阵次数统计：")
-        print_formatted_matches(match_df)
-        
-        output_path = file_selector.save_file()
-        
-        if output_path:
-            with pd.ExcelWriter(output_path, engine='openpyxl') as writer:
-                result_df.to_excel(writer, sheet_name='积分排名', index=False)
-                match_df.to_excel(writer, sheet_name='对阵统计', index=False)
-            print(f"\n结果已保存到：{output_path}")
-    
+        file_selector.run()
     except Exception as e:
         print(f"发生错误：{str(e)}")
         messagebox.showerror("错误", str(e))
-    
-    finally:
-        if file_selector:
-            file_selector.cleanup()
 
 if __name__ == "__main__":
     main()
