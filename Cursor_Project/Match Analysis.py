@@ -1,14 +1,22 @@
 import pandas as pd
 import os
+import time  # 新增导入 time 模块
+# 在Tkinter导入前设置环境变量
+os.environ['TK_SILENCE_DEPRECATION'] = '1'  # 禁用Tk弃用警告
+os.environ['XMODIFIERS'] = '@im=disabled'   # 禁用X11输入法
 from tkinter import *
 from tkinter import filedialog, messagebox
 from tkinter import ttk
+from tkinter import simpledialog
+
+import time
 
 class FileSelector:
     def __init__(self):
         # 创建主窗口
         self.root = Tk()
         self.root.title("比赛积分统计程序")
+        time.sleep(0.5)  # 延迟 0.5 秒
         
         # 设置窗口大小和位置
         self.center_window()
@@ -161,7 +169,31 @@ class FileSelector:
             return
             
         try:
+            # 新增隐藏Sheet检测
+            from openpyxl import load_workbook
+            wb = load_workbook(self.selected_file)
+            hidden_sheets = [ws.title for ws in wb.worksheets if ws.sheet_state == 'hidden']
+            
+            if hidden_sheets:
+                messagebox.showwarning("隐藏工作表警告",
+                    f"发现{len(hidden_sheets)}个隐藏工作表：\n{', '.join(hidden_sheets)}\n"
+                    "请删除隐藏工作表后重新分析！",
+                    parent=self.root
+                )
+                return
+
             df = pd.read_excel(self.selected_file)
+            
+            # 修改后的数据验证（增加列名标准化处理）
+            df.columns = df.columns.str.strip()  # 去除列名两端空格
+            if '比赛组别' not in df.columns:
+                # 显示实际列名帮助调试
+                messagebox.showwarning("列名不匹配", 
+                    f"未找到【比赛组别】列，现有列名为：\n{', '.join(df.columns)}",
+                    parent=self.root
+                )
+                return
+                
             self.result_df, self.match_df = analyze_matches(df)
             
             # 显示表格切换按钮和预览区域
